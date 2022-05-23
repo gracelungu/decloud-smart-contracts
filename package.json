@@ -1,7 +1,7 @@
 {
-  "name": "Blocks Cloud",
+  "name": "blocks-cloud",
   "scripts": {
-    "test":"npx hardhat test"
+    "test":"hardhat test"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.6",
