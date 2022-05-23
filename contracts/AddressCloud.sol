@@ -39,6 +39,10 @@ contract AddressCloud is Ownable {
         return fileType;
     }
 
+    function getFileTypes() public onlyOwner view returns (string[] memory) {
+        return types;
+    }
+
     error InvalidType(string fileType);
 
     modifier typeExists(string memory fileType, bool shouldExists){

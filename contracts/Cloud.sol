@@ -23,19 +23,14 @@ contract Cloud is Ownable {
 
     error CloudAddressNotFound(address sender);
 
-    modifier hasAddressCloud() {
-        if(ownerToContract[msg.sender] == address(ownerToContract[msg.sender])) {
-            revert CloudAddressNotFound(msg.sender);
-        }
-        _;
-    }
-
-    function getOwnerAddressCloud (address contractAddress) public hasAddressCloud view returns (address) {
-        return ownerToContract[contractAddress];
+    function getOwnerAddressCloud () public view returns (address) {
+        return ownerToContract[msg.sender];
     }
 
     function transferOwnership (address newOwner) public payable returns (bool){
         address ownerContract = ownerToContract[msg.sender];
+
+        ownerToContract[msg.sender] = address(0);
 
         (bool success,) = ownerContract.call{value: msg.value}(
             abi.encodeWithSignature("transferOwnership(address)", newOwner)

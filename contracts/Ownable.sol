@@ -19,9 +19,9 @@ contract Ownable {
     modifier onlyOwner () {
         if(msg.sender == _owner || msg.sender == _cloudAddress) {
             _;
+        } else {
+            revert Unauthorized(_owner);
         }
-
-        revert Unauthorized(msg.sender);
     }
 
     function _transferOwnership (address newOwner) public onlyOwner returns (address){
