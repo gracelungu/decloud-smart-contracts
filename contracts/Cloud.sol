@@ -13,10 +13,14 @@ contract Cloud is Ownable {
     
     mapping(address => address) public ownerToContract;
 
-    function createAddressCloud () public returns (address) {
+    function createAddressCloud () public payable returns (address) {
         AddressCloud addressCloud = new AddressCloud(address(this));
         address contractAddress = address(addressCloud);
         ownerToContract[msg.sender] = contractAddress;
+
+        (bool success,) = contractAddress.call{value: msg.value}(
+            abi.encodeWithSignature("transferOwnership(address)", msg.sender)
+        );
 
         return contractAddress;
     }
